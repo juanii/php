@@ -77,9 +77,17 @@ RUN apt-get update \
         xsl \
     && docker-php-ext-enable imagick
 
-# install odbc php ext
+# install mssql odbc driver, mssql client and odbc php ext
 RUN apt-get update \
-  && apt-get install unixodbc-dev
+    && apt-get install -y --no-install-recommends gnupg2 \
+        apt-transport-https \
+        ca-certificates \
+    && curl -sS https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/microsoft.asc.gpg \
+    && curl -sS https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+    && apt-get update \
+    && ACCEPT_EULA=Y apt-get -y install msodbcsql17 \
+        unixodbc-dev \
+        mssql-tools
 
 RUN set -x \
     && docker-php-source extract \
