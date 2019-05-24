@@ -131,6 +131,7 @@ RUN { \
                 echo 'date.timezone=UTC'; \
     } > /usr/local/etc/php/conf.d/php.ini
 
+ENV DOCROOTSUB=""
 ENV PORT 8080
 ENV SSH_PORT 2222
 EXPOSE 2222 8080

@@ -19,7 +19,8 @@ eval $(printenv | sed -n "s/^\([^=]\+\)=\(.*\)$/export \1=\2/p" | sed 's/"/\\\"/
 
 sed -i "s/SSH_PORT/$SSH_PORT/g" /etc/ssh/sshd_config
 service ssh start
-sed -i "s/{PORT}/$PORT/g" /etc/apache2/apache2.conf
+sed -i "s|{PORT}|$PORT|g" /etc/apache2/apache2.conf
+sed -i "s|{DOCROOTSUB}|$DOCROOTSUB|g" /etc/apache2/apache2.conf
 mkdir /var/lock/apache2
 mkdir /var/run/apache2
 
